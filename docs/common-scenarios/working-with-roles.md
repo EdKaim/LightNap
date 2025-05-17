@@ -43,7 +43,7 @@ public class ChatController(IChatController chatService) : ControllerBase
 {
   ...
   [HttpPost("chat/{commentId}/hide")]
-  [Authorize(Roles = ["Moderator"])]
+  [Authorize(Roles = "Moderator")]
   public async Task<ApiResponseDto<bool>> HideComment(string commentId)
   {
     ...
@@ -56,7 +56,7 @@ That's it. The role has been added and the REST endpoint now allows `Moderator` 
 Sometimes you'll want to allow users who are a member of _any_ specified role to access an endpoint. This can be done by providing a list of roles in a single `Authorize` attribute, such as:
 
 ```csharp
-[Authorize(Roles = ["Administrator,Moderator"])]
+[Authorize(Roles = "Administrator,Moderator")]
 ```
 
 This will allow any user who is an `Administrator` or `Moderator` (or both) to access the endpoint.
@@ -66,8 +66,8 @@ This will allow any user who is an `Administrator` or `Moderator` (or both) to a
 If your endpoint needs a user to be a member of _all_ roles, add each as its own attribute, such as:
 
 ``` csharp
-[Authorize(Roles = ["Administrator"])]
-[Authorize(Roles = ["Moderator"])]
+[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Moderator")]
 ```
 
 This will require a user to be both an `Administrator` and a `Moderator` to access the endpoint.
